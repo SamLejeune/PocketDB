@@ -308,8 +308,8 @@ fn main() {
         PocketDB::cell(DataType::Bool(false))
     ]
   ));
-  db.insert(27, PocketDB::row(
-    27,
+  db.insert(28, PocketDB::row(
+    28,
     vec![
         PocketDB::cell(DataType::Text(String::from("Maggie"))),
         PocketDB::cell(DataType::Text(String::from("Lejeune"))),
@@ -319,8 +319,8 @@ fn main() {
         PocketDB::cell(DataType::Bool(false))
     ]
   ));
-  db.insert(27, PocketDB::row(
-    27,
+  db.insert(29, PocketDB::row(
+    29,
     vec![
         PocketDB::cell(DataType::Text(String::from("Wynne"))),
         PocketDB::cell(DataType::Text(String::from("Lejeune"))),
@@ -330,9 +330,186 @@ fn main() {
         PocketDB::cell(DataType::Bool(false))
     ]
   ));
+  db.insert(30, PocketDB::row(
+    30,
+    vec![
+        PocketDB::cell(DataType::Text(String::from("James"))),
+        PocketDB::cell(DataType::Text(String::from("Samuel"))),
+        PocketDB::cell(DataType::Text(String::from("Software engineer"))),
+        PocketDB::cell(DataType::Text(String::from("Vanguard"))),
+        PocketDB::cell(DataType::Text(String::from("5"))),
+        PocketDB::cell(DataType::Bool(false))
+    ]
+  ));
+  db.insert(31, PocketDB::row(
+    31,
+    vec![
+        PocketDB::cell(DataType::Text(String::from("Marley"))),
+        PocketDB::cell(DataType::Text(String::from("Dog"))),
+        PocketDB::cell(DataType::Text(String::from("Software engineer"))),
+        PocketDB::cell(DataType::Text(String::from("Vanguard"))),
+        PocketDB::cell(DataType::Text(String::from("5"))),
+        PocketDB::cell(DataType::Bool(false))
+    ]
+  ));
+  db.insert(32, PocketDB::row(
+    32,
+    vec![
+        PocketDB::cell(DataType::Text(String::from("Dan"))),
+        PocketDB::cell(DataType::Text(String::from("Tamulonis"))),
+        PocketDB::cell(DataType::Text(String::from("Software engineer"))),
+        PocketDB::cell(DataType::Text(String::from("Vanguard"))),
+        PocketDB::cell(DataType::Text(String::from("5"))),
+        PocketDB::cell(DataType::Bool(false))
+    ]
+  ));
+  db.insert(33, PocketDB::row(
+    33,
+    vec![
+        PocketDB::cell(DataType::Text(String::from("Peter"))),
+        PocketDB::cell(DataType::Text(String::from("Parker"))),
+        PocketDB::cell(DataType::Text(String::from("Software engineer"))),
+        PocketDB::cell(DataType::Text(String::from("Vanguard"))),
+        PocketDB::cell(DataType::Text(String::from("5"))),
+        PocketDB::cell(DataType::Bool(false))
+    ]
+  ));
+  db.insert(34, PocketDB::row(
+    34,
+    vec![
+        PocketDB::cell(DataType::Text(String::from("Nancy"))),
+        PocketDB::cell(DataType::Text(String::from("Mullen"))),
+        PocketDB::cell(DataType::Text(String::from("Software engineer"))),
+        PocketDB::cell(DataType::Text(String::from("Vanguard"))),
+        PocketDB::cell(DataType::Text(String::from("5"))),
+        PocketDB::cell(DataType::Bool(false))
+    ]
+  ));
+  db.insert(35, PocketDB::row(
+    35,
+    vec![
+        PocketDB::cell(DataType::Text(String::from("Mike"))),
+        PocketDB::cell(DataType::Text(String::from("Cebrian"))),
+        PocketDB::cell(DataType::Text(String::from("Software engineer"))),
+        PocketDB::cell(DataType::Text(String::from("Vanguard"))),
+        PocketDB::cell(DataType::Text(String::from("5"))),
+        PocketDB::cell(DataType::Bool(false))
+    ]
+  ));
+  db.insert(36, PocketDB::row(
+    36,
+    vec![
+        PocketDB::cell(DataType::Text(String::from("Justin"))),
+        PocketDB::cell(DataType::Text(String::from("Silang"))),
+        PocketDB::cell(DataType::Text(String::from("Software engineer"))),
+        PocketDB::cell(DataType::Text(String::from("Vanguard"))),
+        PocketDB::cell(DataType::Text(String::from("5"))),
+        PocketDB::cell(DataType::Bool(false))
+    ]
+  ));
+  db.insert(37, PocketDB::row(
+    37,
+    vec![
+        PocketDB::cell(DataType::Text(String::from("Maggie"))),
+        PocketDB::cell(DataType::Text(String::from("Lejeune"))),
+        PocketDB::cell(DataType::Text(String::from("Software engineer"))),
+        PocketDB::cell(DataType::Text(String::from("Vanguard"))),
+        PocketDB::cell(DataType::Text(String::from("5"))),
+        PocketDB::cell(DataType::Bool(false))
+    ]
+  ));
+  db.insert(38, PocketDB::row(
+    38,
+    vec![
+        PocketDB::cell(DataType::Text(String::from("Wynne"))),
+        PocketDB::cell(DataType::Text(String::from("Lejeune"))),
+        PocketDB::cell(DataType::Text(String::from("Software engineer"))),
+        PocketDB::cell(DataType::Text(String::from("Vanguard"))),
+        PocketDB::cell(DataType::Text(String::from("5"))),
+        PocketDB::cell(DataType::Bool(false))
+    ]
+  ));
+  db.insert(39, PocketDB::row(
+    39,
+    vec![
+        PocketDB::cell(DataType::Text(String::from("James"))),
+        PocketDB::cell(DataType::Text(String::from("Samuel"))),
+        PocketDB::cell(DataType::Text(String::from("Software engineer"))),
+        PocketDB::cell(DataType::Text(String::from("Vanguard"))),
+        PocketDB::cell(DataType::Text(String::from("5"))),
+        PocketDB::cell(DataType::Bool(false))
+    ]
+  ));
+  // Dog doesn't work...
+  db.insert(40, PocketDB::row(
+    40,
+    vec![
+        PocketDB::cell(DataType::Text(String::from("Marley"))),
+        PocketDB::cell(DataType::Text(String::from("Dog"))),
+        PocketDB::cell(DataType::Text(String::from("Software engineer"))),
+        PocketDB::cell(DataType::Text(String::from("Vanguard"))),
+        PocketDB::cell(DataType::Text(String::from("5"))),
+        PocketDB::cell(DataType::Bool(false))
+    ]
+  ));
+  db.insert(41, PocketDB::row(
+    41,
+    vec![
+        PocketDB::cell(DataType::Text(String::from("Dan"))),
+        PocketDB::cell(DataType::Text(String::from("Tamulonis"))),
+        PocketDB::cell(DataType::Text(String::from("Software engineer"))),
+        PocketDB::cell(DataType::Text(String::from("Vanguard"))),
+        PocketDB::cell(DataType::Text(String::from("5"))),
+        PocketDB::cell(DataType::Bool(false))
+    ]
+  ));
 
-  db.delete_by_secondary_index(DataType::Text(String::from("Cebrian")), "lastname");
-  println!("{:?}", db.search_by_secondary_index(DataType::Text(String::from("Lejeune")), "lastname"));
+  for i in 1..42 {
+    println!("{:?}", db.search_by_primary_index(DataType::Integer(i)));
+  }
+  
+  // Parker
+  println!("{:?}", db.search_by_secondary_index(DataType::Text(String::from("Moore")), "lastname"));
+
+//   db.insert(42, PocketDB::row(
+//     33,
+//     vec![
+//         PocketDB::cell(DataType::Text(String::from("Peter"))),
+//         PocketDB::cell(DataType::Text(String::from("Parker"))),
+//         PocketDB::cell(DataType::Text(String::from("Software engineer"))),
+//         PocketDB::cell(DataType::Text(String::from("Vanguard"))),
+//         PocketDB::cell(DataType::Text(String::from("5"))),
+//         PocketDB::cell(DataType::Bool(false))
+//     ]
+//   ));
+//   db.insert(43, PocketDB::row(
+//     34,
+//     vec![
+//         PocketDB::cell(DataType::Text(String::from("Nancy"))),
+//         PocketDB::cell(DataType::Text(String::from("Mullen"))),
+//         PocketDB::cell(DataType::Text(String::from("Software engineer"))),
+//         PocketDB::cell(DataType::Text(String::from("Vanguard"))),
+//         PocketDB::cell(DataType::Text(String::from("5"))),
+//         PocketDB::cell(DataType::Bool(false))
+//     ]
+//   ));
+
+//   for i in 0..2000 {
+//     db.insert(i, PocketDB::row(
+//         i,
+//         vec![
+//             PocketDB::cell(DataType::Text(String::from("Nancy"))),
+//             PocketDB::cell(DataType::Text(String::from("Mullen"))),
+//             PocketDB::cell(DataType::Text(String::from("Software engineer"))),
+//             PocketDB::cell(DataType::Text(String::from("Vanguard"))),
+//             PocketDB::cell(DataType::Text(String::from("5"))),
+//             PocketDB::cell(DataType::Bool(false))
+//         ]
+//       ));
+//   }
+
+//   db.delete_by_secondary_index(DataType::Text(String::from("Cebrian")), "lastname");
+    // println!("{:?}", db.search_by_primary_index(DataType::Integer(244)));
     
 /*
 > NORMALIZE ALL DATA BEING SAVED: -> this will improve the garbage collection
@@ -396,3 +573,154 @@ TODO:
     insert(&mut self, key: u32, row_offset: u32, pager: &mut pager, table: &mut Table) {}
   */
 }
+
+/* 
+xxxxxxxxxxxxxxxxxxxxxx
+Logging scripts: 
+xxxxxxxxxxxxxxxxxxxxxx
+
+inset() {}
+// *********************************
+let (row_offset, _)= row_meta_data;
+if let Some(row) = table.row(row_offset) {
+    if let Some(indexed_col) = root.node_indexed_column() {
+        println!("INSERTING: {:?}", row.cells()[indexed_col].to_typed_data());
+    } 
+}
+println!("INSERTING: {}", key);
+// *********************************
+
+
+insert_internal() -> under is_root {}
+-----------------------------------------------------------------------------------------------------------------------------
+*****************************************************************************************************************************
+-----------------------------------------------------------------------------------------------------------------------------
+println!("LEFT CHILD: ");
+for i in 0..left_child.keys_len() {
+    let (row_offset, _) = left_child.key(i);
+    if let Some(row) = table.row(row_offset) {
+        // if let Some(indexed_col) = left_child.node_indexed_column() {
+        //     println!("{:?}", row.cells()[indexed_col].to_typed_data());
+        // }
+    } else {
+        println!("{:?}", left_child.key(i))
+    }
+}
+if let Some(right_child) = &right_child {
+    println!("RIGHT CHILD: ");
+    for i in 0..right_child.keys_len() {
+        let (row_offset, _) = right_child.key(i);
+        if let Some(row) = table.row(row_offset) {
+            // if let Some(indexed_col) = right_child.node_indexed_column() {
+            //     println!("{:?}", row.cells()[indexed_col].to_typed_data());
+            // }
+        } else {
+            println!("{:?}", right_child.key(i))
+        }
+    }
+}
+
+println!("NODE: ");
+for i in 0..node.keys_len() {
+    let (row_offset, _) = node.key(i);
+    if let Some(row) = table.row(row_offset) {
+        // if let Some(indexed_col) = node.node_indexed_column() {
+        //     println!("{:?}", row.cells()[indexed_col].to_typed_data());
+        // }
+    } else {
+        println!("{:?}", node.key(i))
+    }
+}
+println!("LEFT: ");
+for i in 0..left_node.keys_len() {
+    let (row_offset, _) = left_node.key(i);
+    if let Some(row) = table.row(row_offset) {
+        // if let Some(indexed_col) = left_node.node_indexed_column() {
+        //     println!("{:?}", row.cells()[indexed_col].to_typed_data());
+        // }
+    } else {
+        println!("{:?}", left_node.key(i))
+    }
+}
+// println!("LEFT CHILDREN:");
+// for i in 0..left_node.children_len() {
+//     println!("LEFT CHILD OF LEFT NODE: {}", i);
+//     if let Some(left_child) = left_node.cached_tree_node_child(i) {
+//         for j in 0..left_child.keys_len() {
+//             let (row_offset, _) = left_child.key(j);
+//             if let Some(row) = table.row(row_offset) {
+//                 if let Some(indexed_col) = left_child.node_indexed_column() {
+//                     println!("{:?}", row.cells()[indexed_col].to_typed_data());
+//                 }
+//             }
+//         }
+//     }
+// }
+println!("RIGHT: ");
+for i in 0..right_node.keys_len() {
+    let (row_offset, _) = right_node.key(i);
+    if let Some(row) = table.row(row_offset) {
+        // if let Some(indexed_col) = right_node.node_indexed_column() {
+        //     println!("{:?}", row.cells()[indexed_col].to_typed_data());
+        // }
+    }  else {
+        println!("{:?}", right_node.key(i))
+    }
+}
+// println!("RIGHT CHILDREN:");
+// for i in 0..right_node.children_len() {
+//     println!("RIGHT CHILD OF RIGHT NODE: {}", i);
+//     if let Some(right_child) = right_node.cached_tree_node_child(i) {
+//         for j in 0..right_child.keys_len() {
+//             let (row_offset, _) = right_child.key(j);
+//             if let Some(row) = table.row(row_offset) {
+//                 if let Some(indexed_col) = right_child.node_indexed_column() {
+//                     println!("{:?}", row.cells()[indexed_col].to_typed_data());
+//                 }
+//             }
+//         }
+//     }
+// }
+// I NEED TO WORK ON INSERTING THE RETURNED RIGHT NODE IN THE PROPER POSITION
+println!("{}", left_node.children_len());
+println!("{}", right_node.children_len());
+println!("{}", i);
+
+for i in 0..right_node.children_len() {
+    println!("RIGHT CHILD OF RIGHT NODE: {}", i);
+    if let Some(right_child) = right_node.cached_tree_node_child(i) {
+        for j in 0..right_child.keys_len() {
+            println!("{:?}", right_child.key((j)));                                
+        }
+    }
+}
+-----------------------------------------------------------------------------------------------------------------------------
+*****************************************************************************************************************************
+-----------------------------------------------------------------------------------------------------------------------------
+
+insert_leaf()
+-----------------------------------------------------------------------------------------------------------------------------
+*****************************************************************************************************************************
+-----------------------------------------------------------------------------------------------------------------------------
+println!("INSERTING INTO: ");
+for i in 0..node.keys_len() {
+    let (row_offset, _) = node.key(i);
+    if let Some(row) = table.row(row_offset) {
+        if let Some(indexed_col) = node.node_indexed_column() {
+            println!("{:?}", row.cells()[indexed_col].to_typed_data());
+        }
+    } else {
+        println!("{:?}", node.key(i))
+    }
+}
+-----------------------------------------------------------------------------------------------------------------------------
+*****************************************************************************************************************************
+-----------------------------------------------------------------------------------------------------------------------------
+
+let (key_value, _) = node.key(0);
+if let Some(row) = table.row(key_value) {
+    if let Some(indexed_col) = node.node_indexed_column() {
+        println!("{:?}", row.cells()[indexed_col].to_typed_data());
+    }
+}
+*/
