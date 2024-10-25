@@ -1,5 +1,3 @@
-use rand::{rngs::ThreadRng, seq::index, Rng};
-
 use super::{b_tree::{btree::BTree, disk_storage::node::NodeIndexType}, file_stystem::pager::Pager, secondary_index::secondary_index::SecondaryIndex, shared::enums::{ColumnType, DataType}, table::{disk_storage::{cell::Cell, row::Row}, table::Table}};
 
 #[derive(Debug)]
@@ -8,7 +6,6 @@ pub struct PocketDB {
     secondary_indexes: SecondaryIndex,
 	table: Table,
 	pager: Pager,
-    rng: ThreadRng
 }
 
 impl PocketDB {
@@ -20,7 +17,6 @@ impl PocketDB {
             secondary_indexes: PocketDB::new_secondary_indexes(&mut pager),
             table: PocketDB::new_table(&mut pager),
             pager,
-            rng: rand::thread_rng()
         }
 	}
 
@@ -66,7 +62,6 @@ impl PocketDB {
         let row_offset = self.pager.add_to_write_buffer(&row.data(), None);
 		self.table.insert_row(row_offset, row);
 
-        // let primary_key = self.rng.gen_range(1..=1000) as u32;
 		self.primary_index_tree.insert(key, (row_offset, row_size), &mut self.pager, &mut self.table);
         for secondary_tree in self.secondary_indexes.secondary_index_trees_mut().iter_mut() {
             secondary_tree.insert(row_offset, (row_offset, row_size), &mut self.pager, &mut self.table);

@@ -1,6 +1,6 @@
 use std::io::Read;
 
-use crate::db::{file_stystem::{file_handler::FileHandler, write_buffer::WriteBufferItem}, meta::disk_storage::{free_list::{FreeList, FreeListItem}, master::Master}, shared::constants::{self, free_list_item::FREE_ITEM_SIZE}};
+use crate::db::{file_stystem::{file_handler::FileHandler, write_buffer::WriteBufferItem}, meta::disk_storage::{free_list::{FreeList, FreeListItem}, master::Master}, shared::constants::{self, free_list_item::FREE_ITEM_SIZE, params::ELEMENT_SIZE}};
 
 // use super::disk_storage::{free_list::{FreeList, FreeListItem}, master::Master};
 
@@ -156,9 +156,9 @@ impl Pager {
         free_list_buffer.extend((free_list_size as u32).to_le_bytes());
         free_list_buffer.extend(self.free_list.free_list_data());
 
-        // TODO: remove hard-coded 92
-        let padding = 92 - (free_list_buffer.len() % 92);
-        if padding < 92 {
+        // TODO: remove hard-coded ELEMENT_SIZE
+        let padding = ELEMENT_SIZE - (free_list_buffer.len() % ELEMENT_SIZE);
+        if padding < ELEMENT_SIZE {
             free_list_buffer.extend(vec![0u8; padding]);
         }
 
@@ -172,9 +172,9 @@ impl Pager {
         reclaim_list_buffer.extend((reclaim_list_size as u32).to_le_bytes());
         reclaim_list_buffer.extend(self.free_list.recliam_list_data());
 
-        // TODO: remove hard-coded 92
-        let padding = 92 - (reclaim_list_buffer.len() % 92);
-        if padding < 92 {
+        // TODO: remove hard-coded ELEMENT_SIZE
+        let padding = ELEMENT_SIZE - (reclaim_list_buffer.len() % ELEMENT_SIZE);
+        if padding < ELEMENT_SIZE {
             reclaim_list_buffer.extend(vec![0u8; padding]);
         }
 

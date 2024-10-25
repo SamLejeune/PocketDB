@@ -70,7 +70,7 @@ impl NodeOverflow {
         (offset, size)
     }
 
-    // TODO: *** I need to normalize this to be 92 bytes (SLAB allocation...) ***
+    // TODO: *** I need to normalize this to be ELEMENT_SIZE bytes (SLAB allocation...) ***
     pub fn data(&self) -> &[u8] {
         &(*self)
     }

@@ -27,8 +27,8 @@ impl BTree {
         BTree { root: None, index_type: NodeIndexType::Primary, indexed_column: None }
     }
 
-    pub fn insert(&mut self, key: u32, row_meta_data: (u32, usize), pager: &mut Pager, table: &mut Table) {       
-
+    pub fn insert(&mut self, key: u32, row_meta_data: (u32, usize), pager: &mut Pager, table: &mut Table) {  
+        println!("-----------------------------"); 
         if let Some(root) = self.root.take() {
             let (node , _) = BTree::insert_node(root, key, false, row_meta_data, pager, table);
 
@@ -70,10 +70,10 @@ impl BTree {
         );
 
         if let Some(mut right_child) = right_child {
-            let (promote_key, remote_key_size) = if left_child.keys_len() > right_child.keys_len() {
-                left_child.take_key(left_child.keys_len() - 1)
+            let ((promote_key, remote_key_size), promote_left) = if left_child.keys_len() > right_child.keys_len() {
+                (left_child.take_key(left_child.keys_len() - 1), true)
             } else {
-                right_child.take_key(0)
+                (right_child.take_key(0), false)
             }; 
 
             let left_child_offset = pager.add_to_write_buffer(left_child.data(), node.child_offset_child_size(i));
@@ -86,11 +86,16 @@ impl BTree {
                 if node.is_root() {
                     let (mut left_node, mut right_node) = BTree::insert_balance_root_internal(&mut node, i, promote_key, duplicate_key, row_meta_data, pager, table);
 
-                    if i < num_keys_pre_split / 2 {
-                        left_node.splice_tree_node_child(right_child, right_child_offset, false, i + 1);
+                    if left_node.children_len() < right_node.children_len() {
+                        let key_value = BTree::key_value_from_table(row_meta_data, left_node.node_indexed_column(), pager, table);
+                        let (splice_at, _) = BTree::key_index_from_node(&left_node, &key_value, pager, table);
+
+                        left_node.splice_tree_node_child(right_child, right_child_offset, false, splice_at);
                     } else {
-                        let i = max(i, right_node.children_len()) - min(i, right_node.children_len());
-                        right_node.splice_tree_node_child(right_child, right_child_offset, false, i);
+                        let key_value = BTree::key_value_from_table(row_meta_data, right_node.node_indexed_column(), pager, table);
+                        let (splice_at, _) = BTree::key_index_from_node(&right_node, &key_value, pager, table);
+
+                        right_node.splice_tree_node_child(right_child, right_child_offset, false, min(splice_at, right_node.children_len()));
                     }
 
                     let left_child_offset = pager.add_to_write_buffer(left_node.data(), None);
@@ -100,19 +105,24 @@ impl BTree {
                     node.add_tree_node_child(right_node, right_child_offset, false);
         
                     return (node, None);
-                } else {
+                } else { 
                     let (mut left_node, mut right_node) = BTree::insert_balance_internal(node, promote_key, duplicate_key, row_meta_data, pager, table);
 
-                    if i < num_keys_pre_split / 2 {
-                        left_node.splice_tree_node_child(right_child, right_child_offset, false, i + 1);
+                    if left_node.children_len() < right_node.children_len() {
+                        let key_value = BTree::key_value_from_table(row_meta_data, left_node.node_indexed_column(), pager, table);
+                        let (splice_at, _) = BTree::key_index_from_node(&left_node, &key_value, pager, table);
+
+                        left_node.splice_tree_node_child(right_child, right_child_offset, false, splice_at);
                     } else {
-                        let i = max(i, right_node.children_len()) - min(i, right_node.children_len());
-                        right_node.splice_tree_node_child(right_child, right_child_offset, false, i);
+                        let key_value = BTree::key_value_from_table(row_meta_data, right_node.node_indexed_column(), pager, table);
+                        let (splice_at, _) = BTree::key_index_from_node(&right_node, &key_value, pager, table);
+
+                        right_node.splice_tree_node_child(right_child, right_child_offset, false, min(splice_at, right_node.children_len()));
                     }
     
                     return (left_node, Some(right_node));
                 }
-            } else {      
+            } else {
                 let i = if let None = node.node_indexed_column() {
                     i
                 } else {
@@ -121,8 +131,10 @@ impl BTree {
                     i
                 };
 
+
                 node.splice_key(promote_key, remote_key_size, i);
-                node.splice_tree_node_child(right_child, right_child_offset, false, min(i + 1, node.children_len())); 
+                // TODO: pulled this out of last arg -> min(i + 1, node.children_len())
+                node.splice_tree_node_child(right_child, right_child_offset, false, i + 1); 
 
                 return (node, None);
             }
@@ -149,7 +161,7 @@ impl BTree {
                 return (node, None); 
             } else {
                 let (left_node, right_node) = BTree::insert_balance_leaf(node, i, key, duplicate_key, row_meta_data, pager, table);
-       
+
                 return (left_node, Some(right_node));
             }
         } else {
@@ -184,10 +196,14 @@ impl BTree {
     }
 
     fn insert_balance_leaf(node: TreeNode, i: usize, key: u32, duplicate_key: bool, row_meta_data: (u32, usize), pager: &mut Pager, table: &mut Table) -> (TreeNode, TreeNode) {
-        let is_mid = i == node.keys_len() / 2;
+        // let is_mid = i == node.keys_len() / 2;
+        // let (split_keys_at, split_children_at) = (
+        //     if is_mid { NODE_MIN_KEYS } else { NODE_MIN_KEYS + 1 },
+        //     if is_mid { NODE_MIN_CHILDREN - 1 } else { NODE_MIN_CHILDREN }
+        // );
         let (split_keys_at, split_children_at) = (
-            if is_mid { NODE_MIN_KEYS } else { NODE_MIN_KEYS + 1 },
-            if is_mid { NODE_MIN_CHILDREN - 1 } else { NODE_MIN_CHILDREN }
+            if i <= NODE_MIN_KEYS { NODE_MIN_KEYS } else { NODE_MIN_KEYS + 1 },
+            NODE_MIN_CHILDREN
         );
 
         let (mut left_node, mut right_node) = node.take_node_and_split(split_keys_at, split_children_at);
@@ -197,7 +213,7 @@ impl BTree {
         let key_value = BTree::key_value_from_table(row_meta_data, right_node.node_indexed_column(), pager, table);
         let node_key_value = BTree::key_value_from_node(&right_node, 0, pager, table);
 
-        if key_value.cmp(&node_key_value).is_gt() {
+        if key_value.cmp(&node_key_value).is_gt() || right_node.keys_len() < NODE_MIN_KEYS {
             let (splice_at, dup_key) = BTree::key_index_from_node(&right_node, &key_value, pager, table);
             BTree::insert_row_to_leaf(&mut right_node, splice_at, key, duplicate_key || dup_key, row_meta_data, pager, table);
         } else {
@@ -243,9 +259,14 @@ impl BTree {
 
         if is_mid {
             let (mut left_node, mut right_node) = node.split_node_at_midpoint();
-            node.append_key(key, row_size);
             left_node.set_node_type(NodeType::Leaf);
             right_node.set_node_type(NodeType::Leaf);
+
+            node.append_key(key, row_size);
+     
+            let key_value = BTree::key_value_from_table(row_meta_data, left_node.node_indexed_column(), pager, table);
+            let (splice_at, dup_key) = BTree::key_index_from_node(&left_node, &key_value, pager, table);
+            BTree::insert_row_to_leaf(&mut left_node, splice_at, key, duplicate_key || dup_key, row_meta_data, pager, table);
 
             return (left_node, right_node);
         } else {
@@ -257,6 +278,7 @@ impl BTree {
             let node_key_value = BTree::key_value_from_node(&left_node, left_node.keys_len() - 1, pager, table);
 
             if key_value.cmp(&node_key_value).is_lt() {
+                // TODO: can I remove key_index_from_node cause I get this from the calling function?
                 let (splice_at, dup_key) = BTree::key_index_from_node(&left_node, &key_value, pager, table);
                 BTree::insert_row_to_leaf(&mut left_node, splice_at, key, duplicate_key || dup_key, row_meta_data, pager, table);
             } else {
@@ -264,7 +286,7 @@ impl BTree {
                 BTree::insert_row_to_leaf(&mut right_node, splice_at, key, duplicate_key || dup_key, row_meta_data, pager, table);
             }
 
-            return  (left_node, right_node);
+            return (left_node, right_node);
         }
     }
 
@@ -274,14 +296,20 @@ impl BTree {
         if !duplicate_key {
             node.splice_key(key, row_size, i); 
             node.splice_node_child(row_offset, row_size, false, i);
+
+            if let Some(_) = node.overflow_child(i) {
+                if let Some(overflow_child) = node.take_cached_node_overflow_child(i) {
+                    node.cache_node_overflow_child(overflow_child, i + 1);
+                }
+            }
         } else {
             if let Some((child_offset, child_size, is_overflowing)) = node.child(i) {
                 if !is_overflowing {
                     node.add_node_overflow_child(row_offset, row_size, i);
 
                     let (row_offset, row_size) = node.take_node_child(i);
-
                     node.add_node_overflow_child(row_offset, row_size, i);
+
                     if let Some(child_overflow_data) = node.overflow_data(i) {
                         let child_overflow_offset = pager.add_to_write_buffer(child_overflow_data, None);
                         node.splice_node_child(child_overflow_offset, child_overflow_data.len(), true, i);
@@ -348,7 +376,6 @@ impl BTree {
         if let Some((child_offset, child_size, is_overflowing)) = node.child(i) {
             if !is_overflowing {
                 let row_meta_data = (child_offset, child_size);
-
                 if key.cmp(&BTree::key_value_from_table(row_meta_data, node.node_indexed_column(), pager, table)).is_eq() {
                     if let Some(row) = table.row(child_offset) {
                         return Some(vec![row]);
@@ -631,7 +658,8 @@ impl BTree {
                     left_child.add_node_child(move_child_offset, move_child_size, false);
 
                     if let Some(overflow_child) = right_child.take_cached_node_overflow_child(i) {
-                        left_child.cache_node_overflow_child(overflow_child, left_child.overflow_children_len());
+                        // left_child.cache_node_overflow_child(overflow_child, left_child.overflow_children_len());
+                        left_child.cache_node_overflow_child(overflow_child, left_child.keys_len() - 1);
                     }
                 }
             }

@@ -99,6 +99,50 @@ impl Node {
         Node(bytes)
     }
 
+    pub fn from_cleave(&mut self) -> (Node, Node) {
+        let mid_keys = self.num_keys() / 2;
+        let mid_children = (self.num_children() / 2) + 1;
+        let mut left_keys = self.shift_keys(0, mid_keys);
+        left_keys.resize(NODE_MAX_KEYS * NODE_KEY_SIZE, 0);
+
+        let num_right_keys = self.num_keys();
+        let mut right_keys = self.shift_keys(0, num_right_keys);
+        right_keys.resize(NODE_MAX_KEYS * NODE_KEY_SIZE, 0);
+
+        let mut left_children = self.shift_children(0, mid_children);
+        left_children.resize(NODE_MAX_CHILDREN * NODE_CHILD_SIZE, 0);
+
+        let num_right_children = self.num_children();
+        let mut right_children = self.shift_children(0, num_right_children);
+        right_children.resize(NODE_MAX_CHILDREN * NODE_CHILD_SIZE, 0);
+
+        let is_root = 0u8;
+        let node_type = self.node_type() as u8;
+        let node_index_type = self.node_index_type() as u8;
+        let indexed_column = self.node_indexed_column() as u32;
+
+        let left_bytes = vec![is_root, node_type, node_index_type]
+            .into_iter()
+            .chain(indexed_column.to_le_bytes())// TODO: add param for indexed column
+            .chain((mid_keys as u32).to_le_bytes())
+            .chain(left_keys)
+            .chain((mid_children as u32).to_le_bytes())
+            .chain(left_children)          
+            .collect();
+
+        let right_bytes = vec![is_root, node_type, node_index_type]
+            .into_iter()
+            .chain(indexed_column.to_le_bytes())// TODO: add param for indexed column
+            .chain((num_right_keys as u32).to_le_bytes())
+            .chain(right_keys)
+            .chain((num_right_children as u32).to_le_bytes())
+            .chain(right_children)          
+            .collect();
+
+        (Node(left_bytes), Node(right_bytes))
+    }
+
+
     pub fn append_merge(merge_to: &mut Node, merge_from: &mut Node) {
         for (i, key) in merge_from.keys().chunks(NODE_KEY_SIZE).enumerate() {
             if i >= merge_from.num_keys() { break; }
@@ -206,7 +250,6 @@ impl Node {
         let key_offset = i * NODE_KEY_SIZE;
         let (start, end) = Node::keys_range();
 
-        // let mut keys = (*self)[start..start + key_offset].to_vec();
         let mut bytes = (*self)[start..start + key_offset].to_vec();
         let key: Vec<u8> = (remote_key_item_size as u32).to_le_bytes()
             .into_iter()
@@ -293,6 +336,7 @@ impl Node {
             .chain(child_offset.to_le_bytes())
             .chain(if is_overflowing { [1u8] } else { [0u8] })
             .collect();
+
         bytes.extend(child);
         bytes.extend(&(*self)[start + children_offset..end - NODE_CHILD_SIZE]);
 
@@ -569,12 +613,15 @@ impl Node {
         (*self).splice(start..end, (node_type as u8).to_le_bytes());
     }
 
-    // pub fn set_is_overflowing(&mut self, is_overflowing: bool) {
-    //     let (start, end) = Node::is_overflowing_range();
-    //     let is_overflowing = if is_overflowing { 1u8 } else { 0u8 };
+    pub fn set_is_overflowing(&mut self, i: usize, is_overflowing: bool) {
+        let (start, _) = Node::children_range();
+        let children_offset = NODE_CHILD_SIZE * i;
+        let start = start + children_offset + NODE_CHILD_CHILD_SIZE + NODE_CHILD_OFFSET_SIZE;
+        let end = start + NODE_CHILD_OVERFLOWING_SIZE;
 
-    //     (*self)[start..end][0] = is_overflowing; 
-    // }
+        (*self)[start..end][0] = if is_overflowing { 1u8 } else { 0u8 };
+
+    }
 
     // pub fn set_overflow_children_size(&mut self, size: usize) {
     //     let (start, end) = Node::overflow_children_size_range();
@@ -645,7 +692,7 @@ children will no longer just be pointers, I can't simply access this slice of da
 > I need to be able to pass size to all instance where I'm inserting a child (from any direction)
 > I need to be able to get the child offset from within the new child structure (offset + size)
 > I need to be able to get the size from within the new child structure
-> I need to update all SLAB allocation to be 92 instead of 92
+> I need to update all SLAB allocation to be ELEMENT_SIZE instead of ELEMENT_SIZE
 > I need to update the read_from_file to also take the number of bytes to read
 > I need to update the CHILD_SIZE contant to be the sum of the offset size and the child size
  */

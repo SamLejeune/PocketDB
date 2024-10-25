@@ -1,6 +1,6 @@
 use std::io::Read;
 
-use crate::db::shared::{constants::{cell::{CELL_DATA_SIZE, CELL_DATA_SIZE_OFFSET}, row::{ROW_DATA_SIZE, ROW_DATA_SIZE_OFFSET, ROW_HEAD_CELL_SIZE}}, enums::DataType, utils};
+use crate::db::shared::{constants::{cell::{CELL_DATA_SIZE, CELL_DATA_SIZE_OFFSET}, row::{ROW_DATA_SIZE, ROW_DATA_SIZE_OFFSET, ROW_HEAD_CELL_SIZE}, params::ELEMENT_SIZE}, enums::DataType, utils};
 
 use super::cell::Cell;
 
@@ -22,9 +22,8 @@ impl Row {
             .len()
         + ROW_HEAD_CELL_SIZE;
         
-        // TODO: remove hard-coded 92
-        let size_padding = 92 - (size % 92);
-        if size_padding < 92 {
+        let size_padding = ELEMENT_SIZE - (size % ELEMENT_SIZE);
+        if size_padding <= ELEMENT_SIZE {
             cells.push(Cell::new_padding(size_padding));
         }
 

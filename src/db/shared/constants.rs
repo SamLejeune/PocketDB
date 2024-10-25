@@ -1,5 +1,6 @@
 pub mod params {
-    pub const ELEMENT_SIZE: usize = 92;
+    pub const NODE_MAX_DEGREE: usize = 4; // 4 64
+    pub const ELEMENT_SIZE: usize = 92; // 92 1112
 }
 
 pub mod master {
@@ -44,20 +45,24 @@ pub mod secondary_index_list {
 }
 
 pub mod node_key {
+    use super::params::NODE_MAX_DEGREE;
+
     pub const NODE_KEY_REMOTE_ITEM_SIZE: usize = 4;
     pub const NODE_KEY_VALUE_SIZE: usize = 4;
     pub const NODE_KEY_SIZE: usize = NODE_KEY_REMOTE_ITEM_SIZE + NODE_KEY_VALUE_SIZE;
-    pub const NODE_MAX_KEYS: usize = 4;
-    pub const NODE_MIN_KEYS: usize = 2;
+    pub const NODE_MAX_KEYS: usize = NODE_MAX_DEGREE; // 4
+    pub const NODE_MIN_KEYS: usize = NODE_MAX_DEGREE / 2; // 2
 }
 
 pub mod node_child {
+    use super::params::NODE_MAX_DEGREE;
+
     pub const NODE_CHILD_CHILD_SIZE: usize = 4;
     pub const NODE_CHILD_OFFSET_SIZE: usize = 4;
     pub const NODE_CHILD_OVERFLOWING_SIZE: usize = 1;
     pub const NODE_CHILD_SIZE: usize = NODE_CHILD_CHILD_SIZE + NODE_CHILD_OFFSET_SIZE + NODE_CHILD_OVERFLOWING_SIZE; // 
-    pub const NODE_MAX_CHILDREN: usize = 5;
-    pub const NODE_MIN_CHILDREN: usize  = 3;
+    pub const NODE_MAX_CHILDREN: usize = NODE_MAX_DEGREE + 1; // 5
+    pub const NODE_MIN_CHILDREN: usize  = (NODE_MAX_DEGREE / 2) + 1; // 3
 }
 
 pub mod node {

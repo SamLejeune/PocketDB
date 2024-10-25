@@ -7,7 +7,7 @@ use super::disk_storage::{node::{Node, NodeIndexType, NodeType}, node_overflow::
 #[derive(Debug)]
 pub struct TreeNode {
     disk_node: Node,
-    cached_children: Option<Vec<Option<Box<TreeNode>>>>,
+    pub cached_children: Option<Vec<Option<Box<TreeNode>>>>,
     cached_overflow_children: Option<Vec<Option<NodeOverflow>>>,
 }
 
@@ -146,7 +146,8 @@ impl TreeNode {
         } else {
             let mut cache = Vec::with_capacity(NODE_MAX_CHILDREN);
             cache.extend((0..NODE_MAX_CHILDREN).map(|_| None));
-            cache.insert(i, Some(overflow_child));
+            cache.splice(i..i + 1, vec![Some(overflow_child)]);
+            // cache.insert(i, Some(overflow_child));
 
             self.cached_overflow_children = Some(cache);
         }
@@ -165,7 +166,7 @@ impl TreeNode {
         if let Some(overflow_children) = &mut self.cached_overflow_children {
             if let Some(overflow_child) = overflow_children.remove(i) {
                 overflow_children.insert(i, None);
-               return  Some(overflow_child);
+                return Some(overflow_child);
             }
         }
         None
@@ -174,7 +175,7 @@ impl TreeNode {
     pub fn remove_node_overflow_child(&mut self, i: usize) {
         if let Some(overflow_children) = &mut self.cached_overflow_children {
             overflow_children.remove(i);
-            overflow_children.push(None);
+            overflow_children.insert(i, None);
         }
     }
 
@@ -237,8 +238,9 @@ impl TreeNode {
             None
         };
 
-        let (left_overflow, right_overflow) = if let Some(overflow_children) =  self.cached_overflow_children.take() {
+        let (left_overflow, right_overflow) = if let Some(overflow_children) = self.cached_overflow_children.take() {
             let (left_overflow, right_overflow) = TreeNode::split_overflow_children_at(overflow_children, split_children_at);
+
             (Some(left_overflow), Some(right_overflow))
         } else {
             (None, None)
@@ -287,20 +289,18 @@ impl TreeNode {
     }
 
     pub fn split_node_at_midpoint(&mut self) -> (TreeNode, TreeNode) {
-        let mid = self.disk_node.num_keys() / 2;
-        let left_data = self.disk_node.from_split_range(0, mid);
-        let right_data = self.disk_node.from_split_range(0, self.disk_node.num_keys());
-
+        let (left_node, right_node) = self.disk_node.from_cleave();
+        
         let right_children = if let Some(children) = &mut self.cached_children {
             if children.len() >= NODE_MIN_CHILDREN {
-                Some(children.split_off(NODE_MIN_CHILDREN))
+                let right_children = children.split_off(NODE_MIN_CHILDREN);
+                Some(right_children)
             } else {
                 None
             }
         } else {
             None
         };
-
         let (left_overflow, right_overflow) = if let Some(overflow_children) = self.cached_overflow_children.take() {
             let (left_overflow, right_overflow) = TreeNode::split_overflow_children_at(overflow_children, NODE_MIN_CHILDREN);
             (Some(left_overflow), Some(right_overflow))
@@ -309,12 +309,12 @@ impl TreeNode {
         };
 
         let left_node = TreeNode { 
-            disk_node: left_data, 
+            disk_node: left_node, 
             cached_children: self.cached_children.take(), 
             cached_overflow_children: left_overflow 
         };
         let right_node = TreeNode { 
-            disk_node: right_data, 
+            disk_node: right_node, 
             cached_children: right_children, 
             cached_overflow_children: right_overflow 
         };
@@ -490,18 +490,27 @@ impl TreeNode {
         self.disk_node.num_children()
     }
 
-
-    pub fn add_node_overflow_child(&mut self, child_offset: u32, size: usize, i: usize ) {  
+    pub fn add_node_overflow_child(&mut self, child_offset: u32, size: usize, i: usize ) {   
         if let Some (overflow_children) = &mut self.cached_overflow_children {
-            if let Some(oveerflow_child) = &mut overflow_children[i] {
-                oveerflow_child.add_item(child_offset, size);
+            // if let Some(overflow_child) = overflow_children.get_mut(i) {
+            //     if let Some(overflow_child) = overflow_child {
+            //         overflow_child.add_item(child_offset, size);
+            //     } else {
+            //         overflow_children[i] = Some(NodeOverflow::new(child_offset, size));
+            //     }
+            // } else {
+            //     overflow_children.push(Some(NodeOverflow::new(child_offset, size)));
+            // }
+
+            if let Some(overflow_child) = &mut overflow_children[i] {
+                overflow_child.add_item(child_offset, size);
             } else {
                 overflow_children[i] = Some(NodeOverflow::new(child_offset, size));
             }
         } else {
             let mut cache = Vec::with_capacity(NODE_MAX_CHILDREN);
             cache.extend((0..NODE_MAX_CHILDREN).map(|_| None));
-            cache.insert(i, Some(NodeOverflow::new(child_offset, size)));
+            cache.splice(i..i + 1, vec![Some(NodeOverflow::new(child_offset, size))]);
 
             self.cached_overflow_children = Some(cache);
         }
@@ -601,7 +610,7 @@ impl TreeNode {
 
         let mut left_overflow_children = overflow_children;
         left_overflow_children.extend((0..NODE_MAX_CHILDREN - left_overflow_children.len()).map(|_| None));
-        
+
         (left_overflow_children, right_overflow_children)        
     }
 }

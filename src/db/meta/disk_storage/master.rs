@@ -1,7 +1,7 @@
 use core::num;
 use std::ops::{Deref, DerefMut};
 
-use crate::db::shared::{constants::{free_list_item::FREE_ITEM_SIZE, master::*}, utils::{self, bytes_to_u32}};
+use crate::db::shared::{constants::{free_list_item::FREE_ITEM_SIZE, master::*, params::ELEMENT_SIZE}, utils::{self, bytes_to_u32}};
 
 #[derive(Debug)]
 pub struct Master(Vec<u8>);
@@ -135,49 +135,49 @@ impl Master {
         bytes_to_u32(&(*self)[start..end])
     }
 
-    // TOO: remove hard-coded 92
+    // TOO: remove hard-coded ELEMENT_SIZE
     pub fn secondary_index_list_len(&self) -> usize {
         let mut size = self.secondary_index_list_size() as usize;
 
-        let padding = 92 - (size % 92);
-        if padding < 92 {
+        let padding = ELEMENT_SIZE - (size % ELEMENT_SIZE);
+        if padding < ELEMENT_SIZE {
             size += padding;
         }
 
         size
     }
 
-    // TOO: remove hard-coded 92
+    // TOO: remove hard-coded ELEMENT_SIZE
     pub fn table_columns_len(&self) -> usize {
         let mut size = self.table_columns_size() as usize;
 
-        let padding = 92 - (size % 92);
-        if padding < 92 {
+        let padding = ELEMENT_SIZE - (size % ELEMENT_SIZE);
+        if padding < ELEMENT_SIZE {
             size += padding;
         }
 
         size
     }
 
-    // TODO: remove hard-coded 92
+    // TODO: remove hard-coded ELEMENT_SIZE
     pub fn free_list_len(&self) -> usize {
         let mut size = self.free_list_number_items() as usize * FREE_ITEM_SIZE;
 
-        let padding = 92 - (size % 92);
-        if padding < 92 {
+        let padding = ELEMENT_SIZE - (size % ELEMENT_SIZE);
+        if padding < ELEMENT_SIZE {
             size += padding;
         }
 
         size
     }
 
-    // TODO: remove hard-coded 92
+    // TODO: remove hard-coded ELEMENT_SIZE
     pub fn reclaim_list_len(&self) -> usize {
         // let mut num_items = self.free_list_number_items() as usize;
         let mut size = self.reclaim_list_number_items() as usize * FREE_ITEM_SIZE;
         
-        let padding = 92 - (size % 92);
-        if padding < 92 {
+        let padding = ELEMENT_SIZE - (size % ELEMENT_SIZE);
+        if padding < ELEMENT_SIZE {
             size += padding;
         }
 
