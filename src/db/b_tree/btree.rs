@@ -1,6 +1,6 @@
 use std::cmp::{max, min};
 
-use crate::db::{b_tree::tree_node::TreeNode, file_stystem::pager::Pager, shared::{constants::{node::NODE_SIZE, node_child::{NODE_MAX_CHILDREN, NODE_MIN_CHILDREN}, node_key::{NODE_MAX_KEYS, NODE_MIN_KEYS}}, enums::DataType}, table::{disk_storage::row::Row, table::Table}};
+use crate::db::{b_tree::tree_node::TreeNode, file_stystem::pager::Pager, shared::{constants::{node::NODE_SIZE, node_child::{NODE_MAX_CHILDREN, NODE_MIN_CHILDREN}, node_key::{NODE_MAX_KEYS, NODE_MIN_KEYS}}, enums::DataType}, table::{disk_storage::row::Row, table::Table, disk_storage}};
 
 use super::disk_storage::{node::{Node, NodeIndexType, NodeType}, node_overflow::NodeOverflow};
 
@@ -28,7 +28,6 @@ impl BTree {
     }
 
     pub fn insert(&mut self, key: u32, row_meta_data: (u32, usize), pager: &mut Pager, table: &mut Table) {  
-        println!("-----------------------------"); 
         if let Some(root) = self.root.take() {
             let (node , _) = BTree::insert_node(root, key, false, row_meta_data, pager, table);
 
@@ -70,10 +69,10 @@ impl BTree {
         );
 
         if let Some(mut right_child) = right_child {
-            let ((promote_key, remote_key_size), promote_left) = if left_child.keys_len() > right_child.keys_len() {
-                (left_child.take_key(left_child.keys_len() - 1), true)
+            let (promote_key, remote_key_size) = if left_child.keys_len() > right_child.keys_len() {
+                (left_child.take_key(left_child.keys_len() - 1))
             } else {
-                (right_child.take_key(0), false)
+                (right_child.take_key(0))
             }; 
 
             let left_child_offset = pager.add_to_write_buffer(left_child.data(), node.child_offset_child_size(i));
@@ -131,9 +130,7 @@ impl BTree {
                     i
                 };
 
-
                 node.splice_key(promote_key, remote_key_size, i);
-                // TODO: pulled this out of last arg -> min(i + 1, node.children_len())
                 node.splice_tree_node_child(right_child, right_child_offset, false, i + 1); 
 
                 return (node, None);
@@ -196,14 +193,9 @@ impl BTree {
     }
 
     fn insert_balance_leaf(node: TreeNode, i: usize, key: u32, duplicate_key: bool, row_meta_data: (u32, usize), pager: &mut Pager, table: &mut Table) -> (TreeNode, TreeNode) {
-        // let is_mid = i == node.keys_len() / 2;
-        // let (split_keys_at, split_children_at) = (
-        //     if is_mid { NODE_MIN_KEYS } else { NODE_MIN_KEYS + 1 },
-        //     if is_mid { NODE_MIN_CHILDREN - 1 } else { NODE_MIN_CHILDREN }
-        // );
         let (split_keys_at, split_children_at) = (
             if i <= NODE_MIN_KEYS { NODE_MIN_KEYS } else { NODE_MIN_KEYS + 1 },
-            NODE_MIN_CHILDREN
+            if i <= NODE_MIN_KEYS { NODE_MIN_CHILDREN - 1  } else { NODE_MIN_CHILDREN },
         );
 
         let (mut left_node, mut right_node) = node.take_node_and_split(split_keys_at, split_children_at);
@@ -297,7 +289,7 @@ impl BTree {
             node.splice_key(key, row_size, i); 
             node.splice_node_child(row_offset, row_size, false, i);
 
-            if let Some(_) = node.overflow_child(i) {
+            if let Some(_) = node.overflow_children(i) {
                 if let Some(overflow_child) = node.take_cached_node_overflow_child(i) {
                     node.cache_node_overflow_child(overflow_child, i + 1);
                 }
@@ -752,9 +744,10 @@ impl BTree {
 
     fn key_index_from_node(node: &TreeNode, key_value: &Vec<u8>, pager: &mut Pager, table: &mut Table) -> (usize, bool) {
         let mut i = 0;
+
         while i < node.keys_len() && key_value.cmp(&BTree::key_value_from_node(node, i, pager, table)).is_gt() {
             i += 1;
-        }  
+        }
         
         let duplicate_key = if i < node.keys_len() {
             key_value.cmp(&BTree::key_value_from_node(node, i, pager, table)).is_eq()

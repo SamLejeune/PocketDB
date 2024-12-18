@@ -2,8 +2,6 @@ use std::io::Read;
 
 use crate::db::{file_stystem::{file_handler::FileHandler, write_buffer::WriteBufferItem}, meta::disk_storage::{free_list::{FreeList, FreeListItem}, master::Master}, shared::constants::{self, free_list_item::FREE_ITEM_SIZE, params::ELEMENT_SIZE}};
 
-// use super::disk_storage::{free_list::{FreeList, FreeListItem}, master::Master};
-
 #[derive(Debug)]
 pub struct Pager {
     pub master: Master,

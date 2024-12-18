@@ -4,472 +4,476 @@ use crate::db::shared::enums::DataType;
 
 fn main() {
   let mut db = PocketDB::new();
-  db.add_column("firstname", ColumnType::Text)
-    .add_indexed_column("lastname", ColumnType::Text) 
-    .add_column("title", ColumnType::Text)
-    .add_column("company", ColumnType::Text)
-    .add_column("years", ColumnType::Text)
-    .add_column("ismarried", ColumnType::Bool);
+//   db.add_indexed_column("firstname", ColumnType::Text)
+//     .add_column("lastname", ColumnType::Text) 
+//     .add_column("title", ColumnType::Text)
+//     .add_column("company", ColumnType::Text)
+//     .add_column("years", ColumnType::Text)
+//     .add_column("ismarried", ColumnType::Bool);
 
-    db.insert(1, PocketDB::row(
-      1,
-      vec![
-            PocketDB::cell(DataType::Text(String::from("Sammie"))),
-            PocketDB::cell(DataType::Text(String::from("Lejeune"))),
-            PocketDB::cell(DataType::Text(String::from("Software engineer"))),
-            PocketDB::cell(DataType::Text(String::from("Vanguard"))),
-            PocketDB::cell(DataType::Text(String::from("5"))),
-            PocketDB::cell(DataType::Bool(false))
-        ]
-    ));
-    db.insert(2, PocketDB::row(
-        2,
-        vec![
-            PocketDB::cell(DataType::Text(String::from("Alexa"))),
-            PocketDB::cell(DataType::Text(String::from("Smith"))),
-            PocketDB::cell(DataType::Text(String::from("Software engineer"))),
-            PocketDB::cell(DataType::Text(String::from("Vanguard"))),
-            PocketDB::cell(DataType::Text(String::from("5"))),
-            PocketDB::cell(DataType::Bool(false))
-        ]
-    ));
-    db.insert(3, PocketDB::row(
-        3,
-        vec![
-            PocketDB::cell(DataType::Text(String::from("Jamie"))),
-            PocketDB::cell(DataType::Text(String::from("Doe"))),
-            PocketDB::cell(DataType::Text(String::from("Software engineer"))),
-            PocketDB::cell(DataType::Text(String::from("Vanguard"))),
-            PocketDB::cell(DataType::Text(String::from("5"))),
-            PocketDB::cell(DataType::Bool(false))
-        ]
-    ));
-    db.insert(4, PocketDB::row(
-        4,
-        vec![
-            PocketDB::cell(DataType::Text(String::from("Chris"))),
-            PocketDB::cell(DataType::Text(String::from("Johnson"))),
-            PocketDB::cell(DataType::Text(String::from("Software engineer"))),
-            PocketDB::cell(DataType::Text(String::from("Vanguard"))),
-            PocketDB::cell(DataType::Text(String::from("5"))),
-            PocketDB::cell(DataType::Bool(false))
-        ]
-    ));
-    db.insert(5, PocketDB::row(
-        5,
-        vec![
-            PocketDB::cell(DataType::Text(String::from("Taylor"))),
-            PocketDB::cell(DataType::Text(String::from("Williams"))),
-            PocketDB::cell(DataType::Text(String::from("Software engineer"))),
-            PocketDB::cell(DataType::Text(String::from("Vanguard"))),
-            PocketDB::cell(DataType::Text(String::from("5"))),
-            PocketDB::cell(DataType::Bool(false))
-        ]
-    ));
-    db.insert(6, PocketDB::row(
-        6,
-        vec![
-            PocketDB::cell(DataType::Text(String::from("Jordan"))),
-            PocketDB::cell(DataType::Text(String::from("Brown"))),
-            PocketDB::cell(DataType::Text(String::from("Software engineer"))),
-            PocketDB::cell(DataType::Text(String::from("Vanguard"))),
-            PocketDB::cell(DataType::Text(String::from("5"))),
-            PocketDB::cell(DataType::Bool(false))
-        ]
-    ));
-    db.insert(7, PocketDB::row(
-        7,
-        vec![
-            PocketDB::cell(DataType::Text(String::from("Casey"))),
-            PocketDB::cell(DataType::Text(String::from("Davis"))),
-            PocketDB::cell(DataType::Text(String::from("Software engineer"))),
-            PocketDB::cell(DataType::Text(String::from("Vanguard"))),
-            PocketDB::cell(DataType::Text(String::from("5"))),
-            PocketDB::cell(DataType::Bool(false))
-        ]
-    ));
-    db.insert(8, PocketDB::row(
-        8,
-        vec![
-            PocketDB::cell(DataType::Text(String::from("Drew"))),
-            PocketDB::cell(DataType::Text(String::from("Martinez"))),
-            PocketDB::cell(DataType::Text(String::from("Software engineer"))),
-            PocketDB::cell(DataType::Text(String::from("Vanguard"))),
-            PocketDB::cell(DataType::Text(String::from("5"))),
-            PocketDB::cell(DataType::Bool(false))
-        ]
-    ));
-    db.insert(9, PocketDB::row(
-        9,
-        vec![
-            PocketDB::cell(DataType::Text(String::from("Morgan"))),
-            PocketDB::cell(DataType::Text(String::from("Garcia"))),
-            PocketDB::cell(DataType::Text(String::from("Software engineer"))),
-            PocketDB::cell(DataType::Text(String::from("Vanguard"))),
-            PocketDB::cell(DataType::Text(String::from("5"))),
-            PocketDB::cell(DataType::Bool(false))
-        ]
-    ));
-    db.insert(10, PocketDB::row(
-        10,
-        vec![
-            PocketDB::cell(DataType::Text(String::from("Casey"))),
-            PocketDB::cell(DataType::Text(String::from("Miller"))),
-            PocketDB::cell(DataType::Text(String::from("Software engineer"))),
-            PocketDB::cell(DataType::Text(String::from("Vanguard"))),
-            PocketDB::cell(DataType::Text(String::from("5"))),
-            PocketDB::cell(DataType::Bool(false))
-        ]
-    ));
-    db.insert(11, PocketDB::row(
-        11,
-        vec![
-            PocketDB::cell(DataType::Text(String::from("Riley"))),
-            PocketDB::cell(DataType::Text(String::from("Wilson"))),
-            PocketDB::cell(DataType::Text(String::from("Software engineer"))),
-            PocketDB::cell(DataType::Text(String::from("Vanguard"))),
-            PocketDB::cell(DataType::Text(String::from("5"))),
-            PocketDB::cell(DataType::Bool(false))
-        ]
-    ));
-    db.insert(12, PocketDB::row(
-        12,
-        vec![
-            PocketDB::cell(DataType::Text(String::from("Reese"))),
-            PocketDB::cell(DataType::Text(String::from("Moore"))),
-            PocketDB::cell(DataType::Text(String::from("Software engineer"))),
-            PocketDB::cell(DataType::Text(String::from("Vanguard"))),
-            PocketDB::cell(DataType::Text(String::from("5"))),
-            PocketDB::cell(DataType::Bool(false))
-        ]
-    ));
-    db.insert(13, PocketDB::row(
-        13,
-        vec![
-            PocketDB::cell(DataType::Text(String::from("Parker"))),
-            PocketDB::cell(DataType::Text(String::from("Taylor"))),
-            PocketDB::cell(DataType::Text(String::from("Software engineer"))),
-            PocketDB::cell(DataType::Text(String::from("Vanguard"))),
-            PocketDB::cell(DataType::Text(String::from("5"))),
-            PocketDB::cell(DataType::Bool(false))
-        ]
-    ));
-    db.insert(14, PocketDB::row(
-        14,
-        vec![
-            PocketDB::cell(DataType::Text(String::from("Quinn"))),
-            PocketDB::cell(DataType::Text(String::from("Anderson"))),
-            PocketDB::cell(DataType::Text(String::from("Software engineer"))),
-            PocketDB::cell(DataType::Text(String::from("Vanguard"))),
-            PocketDB::cell(DataType::Text(String::from("5"))),
-            PocketDB::cell(DataType::Bool(false))
-        ]
-    ));
-    db.insert(15, PocketDB::row(
-        15,
-        vec![
-            PocketDB::cell(DataType::Text(String::from("Avery"))),
-            PocketDB::cell(DataType::Text(String::from("Thomas"))),
-            PocketDB::cell(DataType::Text(String::from("Software engineer"))),
-            PocketDB::cell(DataType::Text(String::from("Vanguard"))),
-            PocketDB::cell(DataType::Text(String::from("5"))),
-            PocketDB::cell(DataType::Bool(false))
-        ]
-    ));
-    db.insert(16, PocketDB::row(
-        16,
-        vec![
-            PocketDB::cell(DataType::Text(String::from("Skyler"))),
-            PocketDB::cell(DataType::Text(String::from("Jackson"))),
-            PocketDB::cell(DataType::Text(String::from("Software engineer"))),
-            PocketDB::cell(DataType::Text(String::from("Vanguard"))),
-            PocketDB::cell(DataType::Text(String::from("5"))),
-            PocketDB::cell(DataType::Bool(false))
-        ]
-    ));
-    db.insert(17, PocketDB::row(
-        17,
-        vec![
-            PocketDB::cell(DataType::Text(String::from("Emerson"))),
-            PocketDB::cell(DataType::Text(String::from("White"))),
-            PocketDB::cell(DataType::Text(String::from("Software engineer"))),
-            PocketDB::cell(DataType::Text(String::from("Vanguard"))),
-            PocketDB::cell(DataType::Text(String::from("5"))),
-            PocketDB::cell(DataType::Bool(false))
-        ]
-    ));
-    db.insert(18, PocketDB::row(
-      18,
-      vec![
-          PocketDB::cell(DataType::Text(String::from("Emerson"))),
-          PocketDB::cell(DataType::Text(String::from("White"))),
-          PocketDB::cell(DataType::Text(String::from("Software engineer"))),
-          PocketDB::cell(DataType::Text(String::from("Vanguard"))),
-          PocketDB::cell(DataType::Text(String::from("5"))),
-          PocketDB::cell(DataType::Bool(false))
-      ]
-  ));
-  db.insert(19, PocketDB::row(
-    19,
-    vec![
-        PocketDB::cell(DataType::Text(String::from("Emerson"))),
-        PocketDB::cell(DataType::Text(String::from("White"))),
-        PocketDB::cell(DataType::Text(String::from("Software engineer"))),
-        PocketDB::cell(DataType::Text(String::from("Vanguard"))),
-        PocketDB::cell(DataType::Text(String::from("5"))),
-        PocketDB::cell(DataType::Bool(false))
-    ]
-));
-    db.insert(20, PocketDB::row(
-      20,
-      vec![
-          PocketDB::cell(DataType::Text(String::from("Reese"))),
-          PocketDB::cell(DataType::Text(String::from("Moore"))),
-          PocketDB::cell(DataType::Text(String::from("Software engineer"))),
-          PocketDB::cell(DataType::Text(String::from("Vanguard"))),
-          PocketDB::cell(DataType::Text(String::from("5"))),
-          PocketDB::cell(DataType::Bool(false))
-      ]
-    ));
-    db.insert(21, PocketDB::row(
-      21,
-      vec![
-          PocketDB::cell(DataType::Text(String::from("Parker"))),
-          PocketDB::cell(DataType::Text(String::from("Taylor"))),
-          PocketDB::cell(DataType::Text(String::from("Software engineer"))),
-          PocketDB::cell(DataType::Text(String::from("Vanguard"))),
-          PocketDB::cell(DataType::Text(String::from("5"))),
-          PocketDB::cell(DataType::Bool(false))
-      ]
-    ));
-  db.insert(22, PocketDB::row(
-    22,
-    vec![
-        PocketDB::cell(DataType::Text(String::from("Tara"))),
-        PocketDB::cell(DataType::Text(String::from("Feeley"))),
-        PocketDB::cell(DataType::Text(String::from("Software engineer"))),
-        PocketDB::cell(DataType::Text(String::from("Vanguard"))),
-        PocketDB::cell(DataType::Text(String::from("5"))),
-        PocketDB::cell(DataType::Bool(false))
-    ]
-  ));
-  db.insert(23, PocketDB::row(
-    23,
-    vec![
-        PocketDB::cell(DataType::Text(String::from("Bob"))),
-        PocketDB::cell(DataType::Text(String::from("Parry"))),
-        PocketDB::cell(DataType::Text(String::from("Software engineer"))),
-        PocketDB::cell(DataType::Text(String::from("Vanguard"))),
-        PocketDB::cell(DataType::Text(String::from("5"))),
-        PocketDB::cell(DataType::Bool(false))
-    ]
-  ));
-  db.insert(24, PocketDB::row(
-    24,
-    vec![
-        PocketDB::cell(DataType::Text(String::from("Pierce"))),
-        PocketDB::cell(DataType::Text(String::from("Mulligan"))),
-        PocketDB::cell(DataType::Text(String::from("Software engineer"))),
-        PocketDB::cell(DataType::Text(String::from("Vanguard"))),
-        PocketDB::cell(DataType::Text(String::from("5"))),
-        PocketDB::cell(DataType::Bool(false))
-    ]
-  ));
-  db.insert(25, PocketDB::row(
-    25,
-    vec![
-        PocketDB::cell(DataType::Text(String::from("Adam"))),
-        PocketDB::cell(DataType::Text(String::from("Whitaker"))),
-        PocketDB::cell(DataType::Text(String::from("Software engineer"))),
-        PocketDB::cell(DataType::Text(String::from("Vanguard"))),
-        PocketDB::cell(DataType::Text(String::from("5"))),
-        PocketDB::cell(DataType::Bool(false))
-    ]
-  ));
-  db.insert(26, PocketDB::row(
-    26,
-    vec![
-        PocketDB::cell(DataType::Text(String::from("Mike"))),
-        PocketDB::cell(DataType::Text(String::from("Cebrian"))),
-        PocketDB::cell(DataType::Text(String::from("Software engineer"))),
-        PocketDB::cell(DataType::Text(String::from("Vanguard"))),
-        PocketDB::cell(DataType::Text(String::from("5"))),
-        PocketDB::cell(DataType::Bool(false))
-    ]
-  ));
-  db.insert(27, PocketDB::row(
-    27,
-    vec![
-        PocketDB::cell(DataType::Text(String::from("Justin"))),
-        PocketDB::cell(DataType::Text(String::from("Silang"))),
-        PocketDB::cell(DataType::Text(String::from("Software engineer"))),
-        PocketDB::cell(DataType::Text(String::from("Vanguard"))),
-        PocketDB::cell(DataType::Text(String::from("5"))),
-        PocketDB::cell(DataType::Bool(false))
-    ]
-  ));
-  db.insert(28, PocketDB::row(
-    28,
-    vec![
-        PocketDB::cell(DataType::Text(String::from("Maggie"))),
-        PocketDB::cell(DataType::Text(String::from("Lejeune"))),
-        PocketDB::cell(DataType::Text(String::from("Software engineer"))),
-        PocketDB::cell(DataType::Text(String::from("Vanguard"))),
-        PocketDB::cell(DataType::Text(String::from("5"))),
-        PocketDB::cell(DataType::Bool(false))
-    ]
-  ));
-  db.insert(29, PocketDB::row(
-    29,
-    vec![
-        PocketDB::cell(DataType::Text(String::from("Wynne"))),
-        PocketDB::cell(DataType::Text(String::from("Lejeune"))),
-        PocketDB::cell(DataType::Text(String::from("Software engineer"))),
-        PocketDB::cell(DataType::Text(String::from("Vanguard"))),
-        PocketDB::cell(DataType::Text(String::from("5"))),
-        PocketDB::cell(DataType::Bool(false))
-    ]
-  ));
-  db.insert(30, PocketDB::row(
-    30,
-    vec![
-        PocketDB::cell(DataType::Text(String::from("James"))),
-        PocketDB::cell(DataType::Text(String::from("Samuel"))),
-        PocketDB::cell(DataType::Text(String::from("Software engineer"))),
-        PocketDB::cell(DataType::Text(String::from("Vanguard"))),
-        PocketDB::cell(DataType::Text(String::from("5"))),
-        PocketDB::cell(DataType::Bool(false))
-    ]
-  ));
-  db.insert(31, PocketDB::row(
-    31,
-    vec![
-        PocketDB::cell(DataType::Text(String::from("Marley"))),
-        PocketDB::cell(DataType::Text(String::from("Dog"))),
-        PocketDB::cell(DataType::Text(String::from("Software engineer"))),
-        PocketDB::cell(DataType::Text(String::from("Vanguard"))),
-        PocketDB::cell(DataType::Text(String::from("5"))),
-        PocketDB::cell(DataType::Bool(false))
-    ]
-  ));
-  db.insert(32, PocketDB::row(
-    32,
-    vec![
-        PocketDB::cell(DataType::Text(String::from("Dan"))),
-        PocketDB::cell(DataType::Text(String::from("Tamulonis"))),
-        PocketDB::cell(DataType::Text(String::from("Software engineer"))),
-        PocketDB::cell(DataType::Text(String::from("Vanguard"))),
-        PocketDB::cell(DataType::Text(String::from("5"))),
-        PocketDB::cell(DataType::Bool(false))
-    ]
-  ));
-  db.insert(33, PocketDB::row(
-    33,
-    vec![
-        PocketDB::cell(DataType::Text(String::from("Peter"))),
-        PocketDB::cell(DataType::Text(String::from("Parker"))),
-        PocketDB::cell(DataType::Text(String::from("Software engineer"))),
-        PocketDB::cell(DataType::Text(String::from("Vanguard"))),
-        PocketDB::cell(DataType::Text(String::from("5"))),
-        PocketDB::cell(DataType::Bool(false))
-    ]
-  ));
-  db.insert(34, PocketDB::row(
-    34,
-    vec![
-        PocketDB::cell(DataType::Text(String::from("Nancy"))),
-        PocketDB::cell(DataType::Text(String::from("Mullen"))),
-        PocketDB::cell(DataType::Text(String::from("Software engineer"))),
-        PocketDB::cell(DataType::Text(String::from("Vanguard"))),
-        PocketDB::cell(DataType::Text(String::from("5"))),
-        PocketDB::cell(DataType::Bool(false))
-    ]
-  ));
-  db.insert(35, PocketDB::row(
-    35,
-    vec![
-        PocketDB::cell(DataType::Text(String::from("Mike"))),
-        PocketDB::cell(DataType::Text(String::from("Cebrian"))),
-        PocketDB::cell(DataType::Text(String::from("Software engineer"))),
-        PocketDB::cell(DataType::Text(String::from("Vanguard"))),
-        PocketDB::cell(DataType::Text(String::from("5"))),
-        PocketDB::cell(DataType::Bool(false))
-    ]
-  ));
-  db.insert(36, PocketDB::row(
-    36,
-    vec![
-        PocketDB::cell(DataType::Text(String::from("Justin"))),
-        PocketDB::cell(DataType::Text(String::from("Silang"))),
-        PocketDB::cell(DataType::Text(String::from("Software engineer"))),
-        PocketDB::cell(DataType::Text(String::from("Vanguard"))),
-        PocketDB::cell(DataType::Text(String::from("5"))),
-        PocketDB::cell(DataType::Bool(false))
-    ]
-  ));
-  db.insert(37, PocketDB::row(
-    37,
-    vec![
-        PocketDB::cell(DataType::Text(String::from("Maggie"))),
-        PocketDB::cell(DataType::Text(String::from("Lejeune"))),
-        PocketDB::cell(DataType::Text(String::from("Software engineer"))),
-        PocketDB::cell(DataType::Text(String::from("Vanguard"))),
-        PocketDB::cell(DataType::Text(String::from("5"))),
-        PocketDB::cell(DataType::Bool(false))
-    ]
-  ));
-  db.insert(38, PocketDB::row(
-    38,
-    vec![
-        PocketDB::cell(DataType::Text(String::from("Wynne"))),
-        PocketDB::cell(DataType::Text(String::from("Lejeune"))),
-        PocketDB::cell(DataType::Text(String::from("Software engineer"))),
-        PocketDB::cell(DataType::Text(String::from("Vanguard"))),
-        PocketDB::cell(DataType::Text(String::from("5"))),
-        PocketDB::cell(DataType::Bool(false))
-    ]
-  ));
-  db.insert(39, PocketDB::row(
-    39,
-    vec![
-        PocketDB::cell(DataType::Text(String::from("James"))),
-        PocketDB::cell(DataType::Text(String::from("Samuel"))),
-        PocketDB::cell(DataType::Text(String::from("Software engineer"))),
-        PocketDB::cell(DataType::Text(String::from("Vanguard"))),
-        PocketDB::cell(DataType::Text(String::from("5"))),
-        PocketDB::cell(DataType::Bool(false))
-    ]
-  ));
-  // Dog doesn't work...
-  db.insert(40, PocketDB::row(
-    40,
-    vec![
-        PocketDB::cell(DataType::Text(String::from("Marley"))),
-        PocketDB::cell(DataType::Text(String::from("Dog"))),
-        PocketDB::cell(DataType::Text(String::from("Software engineer"))),
-        PocketDB::cell(DataType::Text(String::from("Vanguard"))),
-        PocketDB::cell(DataType::Text(String::from("5"))),
-        PocketDB::cell(DataType::Bool(false))
-    ]
-  ));
-  db.insert(41, PocketDB::row(
-    41,
-    vec![
-        PocketDB::cell(DataType::Text(String::from("Dan"))),
-        PocketDB::cell(DataType::Text(String::from("Tamulonis"))),
-        PocketDB::cell(DataType::Text(String::from("Software engineer"))),
-        PocketDB::cell(DataType::Text(String::from("Vanguard"))),
-        PocketDB::cell(DataType::Text(String::from("5"))),
-        PocketDB::cell(DataType::Bool(false))
-    ]
-  ));
+//     db.insert(1, PocketDB::row(
+//       1,
+//       vec![
+//             PocketDB::cell(DataType::Text(String::from("Sammie"))),
+//             PocketDB::cell(DataType::Text(String::from("Lejeune"))),
+//             PocketDB::cell(DataType::Text(String::from("Software engineer"))),
+//             PocketDB::cell(DataType::Text(String::from("Vanguard"))),
+//             PocketDB::cell(DataType::Text(String::from("5"))),
+//             PocketDB::cell(DataType::Bool(false))
+//         ]
+//     ));
+//     db.insert(2, PocketDB::row(
+//         2,
+//         vec![
+//             PocketDB::cell(DataType::Text(String::from("Alex"))),
+//             PocketDB::cell(DataType::Text(String::from("Smith"))),
+//             PocketDB::cell(DataType::Text(String::from("Software engineer"))),
+//             PocketDB::cell(DataType::Text(String::from("Vanguard"))),
+//             PocketDB::cell(DataType::Text(String::from("5"))),
+//             PocketDB::cell(DataType::Bool(false))
+//         ]
+//     ));
+//     db.insert(3, PocketDB::row(
+//         3,
+//         vec![
+//             PocketDB::cell(DataType::Text(String::from("Jamie"))),
+//             PocketDB::cell(DataType::Text(String::from("Doe"))),
+//             PocketDB::cell(DataType::Text(String::from("Software engineer"))),
+//             PocketDB::cell(DataType::Text(String::from("Vanguard"))),
+//             PocketDB::cell(DataType::Text(String::from("5"))),
+//             PocketDB::cell(DataType::Bool(false))
+//         ]
+//     ));
+//     db.insert(4, PocketDB::row(
+//         4,
+//         vec![
+//             PocketDB::cell(DataType::Text(String::from("Chris"))),
+//             PocketDB::cell(DataType::Text(String::from("Johnson"))),
+//             PocketDB::cell(DataType::Text(String::from("Software engineer"))),
+//             PocketDB::cell(DataType::Text(String::from("Vanguard"))),
+//             PocketDB::cell(DataType::Text(String::from("5"))),
+//             PocketDB::cell(DataType::Bool(false))
+//         ]
+//     ));
+//     db.insert(5, PocketDB::row(
+//         5,
+//         vec![
+//             PocketDB::cell(DataType::Text(String::from("Taylor"))),
+//             PocketDB::cell(DataType::Text(String::from("Williams"))),
+//             PocketDB::cell(DataType::Text(String::from("Software engineer"))),
+//             PocketDB::cell(DataType::Text(String::from("Vanguard"))),
+//             PocketDB::cell(DataType::Text(String::from("5"))),
+//             PocketDB::cell(DataType::Bool(false))
+//         ]
+//     ));
+//     db.insert(6, PocketDB::row(
+//         6,
+//         vec![
+//             PocketDB::cell(DataType::Text(String::from("Jordan"))),
+//             PocketDB::cell(DataType::Text(String::from("Brown"))),
+//             PocketDB::cell(DataType::Text(String::from("Software engineer"))),
+//             PocketDB::cell(DataType::Text(String::from("Vanguard"))),
+//             PocketDB::cell(DataType::Text(String::from("5"))),
+//             PocketDB::cell(DataType::Bool(false))
+//         ]
+//     ));
+//     db.insert(7, PocketDB::row(
+//         7,
+//         vec![
+//             PocketDB::cell(DataType::Text(String::from("Casey"))),
+//             PocketDB::cell(DataType::Text(String::from("Davis"))),
+//             PocketDB::cell(DataType::Text(String::from("Software engineer"))),
+//             PocketDB::cell(DataType::Text(String::from("Vanguard"))),
+//             PocketDB::cell(DataType::Text(String::from("5"))),
+//             PocketDB::cell(DataType::Bool(false))
+//         ]
+//     ));
+//     db.insert(8, PocketDB::row(
+//         8,
+//         vec![
+//             PocketDB::cell(DataType::Text(String::from("Drew"))),
+//             PocketDB::cell(DataType::Text(String::from("Martinez"))),
+//             PocketDB::cell(DataType::Text(String::from("Software engineer"))),
+//             PocketDB::cell(DataType::Text(String::from("Vanguard"))),
+//             PocketDB::cell(DataType::Text(String::from("5"))),
+//             PocketDB::cell(DataType::Bool(false))
+//         ]
+//     ));
+//     db.insert(9, PocketDB::row(
+//         9,
+//         vec![
+//             PocketDB::cell(DataType::Text(String::from("Morgan"))),
+//             PocketDB::cell(DataType::Text(String::from("Garcia"))),
+//             PocketDB::cell(DataType::Text(String::from("Software engineer"))),
+//             PocketDB::cell(DataType::Text(String::from("Vanguard"))),
+//             PocketDB::cell(DataType::Text(String::from("5"))),
+//             PocketDB::cell(DataType::Bool(false))
+//         ]
+//     ));
+//     db.insert(10, PocketDB::row(
+//         10,
+//         vec![
+//             PocketDB::cell(DataType::Text(String::from("Casey"))),
+//             PocketDB::cell(DataType::Text(String::from("Miller"))),
+//             PocketDB::cell(DataType::Text(String::from("Software engineer"))),
+//             PocketDB::cell(DataType::Text(String::from("Vanguard"))),
+//             PocketDB::cell(DataType::Text(String::from("5"))),
+//             PocketDB::cell(DataType::Bool(false))
+//         ]
+//     ));
+//     db.insert(11, PocketDB::row(
+//         11,
+//         vec![
+//             PocketDB::cell(DataType::Text(String::from("Riley"))),
+//             PocketDB::cell(DataType::Text(String::from("Wilson"))),
+//             PocketDB::cell(DataType::Text(String::from("Software engineer"))),
+//             PocketDB::cell(DataType::Text(String::from("Vanguard"))),
+//             PocketDB::cell(DataType::Text(String::from("5"))),
+//             PocketDB::cell(DataType::Bool(false))
+//         ]
+//     ));
+//     db.insert(12, PocketDB::row(
+//         12,
+//         vec![
+//             PocketDB::cell(DataType::Text(String::from("Reese"))),
+//             PocketDB::cell(DataType::Text(String::from("Moore"))),
+//             PocketDB::cell(DataType::Text(String::from("Software engineer"))),
+//             PocketDB::cell(DataType::Text(String::from("Vanguard"))),
+//             PocketDB::cell(DataType::Text(String::from("5"))),
+//             PocketDB::cell(DataType::Bool(false))
+//         ]
+//     ));
+//     db.insert(13, PocketDB::row(
+//         13,
+//         vec![
+//             PocketDB::cell(DataType::Text(String::from("Parker"))),
+//             PocketDB::cell(DataType::Text(String::from("Taylor"))),
+//             PocketDB::cell(DataType::Text(String::from("Software engineer"))),
+//             PocketDB::cell(DataType::Text(String::from("Vanguard"))),
+//             PocketDB::cell(DataType::Text(String::from("5"))),
+//             PocketDB::cell(DataType::Bool(false))
+//         ]
+//     ));
+//     db.insert(14, PocketDB::row(
+//         14,
+//         vec![
+//             PocketDB::cell(DataType::Text(String::from("Quinn"))),
+//             PocketDB::cell(DataType::Text(String::from("Anderson"))),
+//             PocketDB::cell(DataType::Text(String::from("Software engineer"))),
+//             PocketDB::cell(DataType::Text(String::from("Vanguard"))),
+//             PocketDB::cell(DataType::Text(String::from("5"))),
+//             PocketDB::cell(DataType::Bool(false))
+//         ]
+//     ));
+//     db.insert(15, PocketDB::row(
+//         15,
+//         vec![
+//             PocketDB::cell(DataType::Text(String::from("Avery"))),
+//             PocketDB::cell(DataType::Text(String::from("Thomas"))),
+//             PocketDB::cell(DataType::Text(String::from("Software engineer"))),
+//             PocketDB::cell(DataType::Text(String::from("Vanguard"))),
+//             PocketDB::cell(DataType::Text(String::from("5"))),
+//             PocketDB::cell(DataType::Bool(false))
+//         ]
+//     ));
+//     db.insert(16, PocketDB::row(
+//         16,
+//         vec![
+//             PocketDB::cell(DataType::Text(String::from("Skyler"))),
+//             PocketDB::cell(DataType::Text(String::from("Jackson"))),
+//             PocketDB::cell(DataType::Text(String::from("Software engineer"))),
+//             PocketDB::cell(DataType::Text(String::from("Vanguard"))),
+//             PocketDB::cell(DataType::Text(String::from("5"))),
+//             PocketDB::cell(DataType::Bool(false))
+//         ]
+//     ));
+//     db.insert(17, PocketDB::row(
+//         17,
+//         vec![
+//             PocketDB::cell(DataType::Text(String::from("Emerson"))),
+//             PocketDB::cell(DataType::Text(String::from("White"))),
+//             PocketDB::cell(DataType::Text(String::from("Software engineer"))),
+//             PocketDB::cell(DataType::Text(String::from("Vanguard"))),
+//             PocketDB::cell(DataType::Text(String::from("5"))),
+//             PocketDB::cell(DataType::Bool(false))
+//         ]
+//     ));
+//     db.insert(18, PocketDB::row(
+//       18,
+//       vec![
+//           PocketDB::cell(DataType::Text(String::from("Emerson"))),
+//           PocketDB::cell(DataType::Text(String::from("White"))),
+//           PocketDB::cell(DataType::Text(String::from("Software engineer"))),
+//           PocketDB::cell(DataType::Text(String::from("Vanguard"))),
+//           PocketDB::cell(DataType::Text(String::from("5"))),
+//           PocketDB::cell(DataType::Bool(false))
+//       ]
+//   ));
+//   db.insert(19, PocketDB::row(
+//     19,
+//     vec![
+//         PocketDB::cell(DataType::Text(String::from("Emerson"))),
+//         PocketDB::cell(DataType::Text(String::from("White"))),
+//         PocketDB::cell(DataType::Text(String::from("Software engineer"))),
+//         PocketDB::cell(DataType::Text(String::from("Vanguard"))),
+//         PocketDB::cell(DataType::Text(String::from("5"))),
+//         PocketDB::cell(DataType::Bool(false))
+//     ]
+// ));
+//     db.insert(20, PocketDB::row(
+//       20,
+//       vec![
+//           PocketDB::cell(DataType::Text(String::from("Reese"))),
+//           PocketDB::cell(DataType::Text(String::from("Moore"))),
+//           PocketDB::cell(DataType::Text(String::from("Software engineer"))),
+//           PocketDB::cell(DataType::Text(String::from("Vanguard"))),
+//           PocketDB::cell(DataType::Text(String::from("5"))),
+//           PocketDB::cell(DataType::Bool(false))
+//       ]
+//     ));
+//     db.insert(21, PocketDB::row(
+//       21,
+//       vec![
+//           PocketDB::cell(DataType::Text(String::from("Parker"))),
+//           PocketDB::cell(DataType::Text(String::from("Taylor"))),
+//           PocketDB::cell(DataType::Text(String::from("Software engineer"))),
+//           PocketDB::cell(DataType::Text(String::from("Vanguard"))),
+//           PocketDB::cell(DataType::Text(String::from("5"))),
+//           PocketDB::cell(DataType::Bool(false))
+//       ]
+//     ));
+//   db.insert(22, PocketDB::row(
+//     22,
+//     vec![
+//         PocketDB::cell(DataType::Text(String::from("Tara"))),
+//         PocketDB::cell(DataType::Text(String::from("Feeley"))),
+//         PocketDB::cell(DataType::Text(String::from("Software engineer"))),
+//         PocketDB::cell(DataType::Text(String::from("Vanguard"))),
+//         PocketDB::cell(DataType::Text(String::from("5"))),
+//         PocketDB::cell(DataType::Bool(false))
+//     ]
+//   ));
+//   db.insert(23, PocketDB::row(
+//     23,
+//     vec![
+//         PocketDB::cell(DataType::Text(String::from("Bob"))),
+//         PocketDB::cell(DataType::Text(String::from("Parry"))),
+//         PocketDB::cell(DataType::Text(String::from("Software engineer"))),
+//         PocketDB::cell(DataType::Text(String::from("Vanguard"))),
+//         PocketDB::cell(DataType::Text(String::from("5"))),
+//         PocketDB::cell(DataType::Bool(false))
+//     ]
+//   ));
+//   db.insert(24, PocketDB::row(
+//     24,
+//     vec![
+//         PocketDB::cell(DataType::Text(String::from("Pierce"))),
+//         PocketDB::cell(DataType::Text(String::from("Mulligan"))),
+//         PocketDB::cell(DataType::Text(String::from("Software engineer"))),
+//         PocketDB::cell(DataType::Text(String::from("Vanguard"))),
+//         PocketDB::cell(DataType::Text(String::from("5"))),
+//         PocketDB::cell(DataType::Bool(false))
+//     ]
+//   ));
+//   db.insert(25, PocketDB::row(
+//     25,
+//     vec![
+//         PocketDB::cell(DataType::Text(String::from("Adam"))),
+//         PocketDB::cell(DataType::Text(String::from("Whitaker"))),
+//         PocketDB::cell(DataType::Text(String::from("Software engineer"))),
+//         PocketDB::cell(DataType::Text(String::from("Vanguard"))),
+//         PocketDB::cell(DataType::Text(String::from("5"))),
+//         PocketDB::cell(DataType::Bool(false))
+//     ]
+//   ));
+//   db.insert(26, PocketDB::row(
+//     26,
+//     vec![
+//         PocketDB::cell(DataType::Text(String::from("Mike"))),
+//         PocketDB::cell(DataType::Text(String::from("Cebrian"))),
+//         PocketDB::cell(DataType::Text(String::from("Software engineer"))),
+//         PocketDB::cell(DataType::Text(String::from("Vanguard"))),
+//         PocketDB::cell(DataType::Text(String::from("5"))),
+//         PocketDB::cell(DataType::Bool(false))
+//     ]
+//   ));
+//   db.insert(27, PocketDB::row(
+//     27,
+//     vec![
+//         PocketDB::cell(DataType::Text(String::from("Justin"))),
+//         PocketDB::cell(DataType::Text(String::from("Silang"))),
+//         PocketDB::cell(DataType::Text(String::from("Software engineer"))),
+//         PocketDB::cell(DataType::Text(String::from("Vanguard"))),
+//         PocketDB::cell(DataType::Text(String::from("5"))),
+//         PocketDB::cell(DataType::Bool(false))
+//     ]
+//   ));
+//   db.insert(28, PocketDB::row(
+//     28,
+//     vec![
+//         PocketDB::cell(DataType::Text(String::from("Maggie"))),
+//         PocketDB::cell(DataType::Text(String::from("Lejeune"))),
+//         PocketDB::cell(DataType::Text(String::from("Software engineer"))),
+//         PocketDB::cell(DataType::Text(String::from("Vanguard"))),
+//         PocketDB::cell(DataType::Text(String::from("5"))),
+//         PocketDB::cell(DataType::Bool(false))
+//     ]
+//   ));
+//   db.insert(29, PocketDB::row(
+//     29,
+//     vec![
+//         PocketDB::cell(DataType::Text(String::from("Wynne"))),
+//         PocketDB::cell(DataType::Text(String::from("Lejeune"))),
+//         PocketDB::cell(DataType::Text(String::from("Software engineer"))),
+//         PocketDB::cell(DataType::Text(String::from("Vanguard"))),
+//         PocketDB::cell(DataType::Text(String::from("5"))),
+//         PocketDB::cell(DataType::Bool(false))
+//     ]
+//   ));
+//   db.insert(30, PocketDB::row(
+//     30,
+//     vec![
+//         PocketDB::cell(DataType::Text(String::from("James"))),
+//         PocketDB::cell(DataType::Text(String::from("Samuel"))),
+//         PocketDB::cell(DataType::Text(String::from("Software engineer"))),
+//         PocketDB::cell(DataType::Text(String::from("Vanguard"))),
+//         PocketDB::cell(DataType::Text(String::from("5"))),
+//         PocketDB::cell(DataType::Bool(false))
+//     ]
+//   ));
+//   db.insert(31, PocketDB::row(
+//     31,
+//     vec![
+//         PocketDB::cell(DataType::Text(String::from("Marley"))),
+//         PocketDB::cell(DataType::Text(String::from("Dog"))),
+//         PocketDB::cell(DataType::Text(String::from("Software engineer"))),
+//         PocketDB::cell(DataType::Text(String::from("Vanguard"))),
+//         PocketDB::cell(DataType::Text(String::from("5"))),
+//         PocketDB::cell(DataType::Bool(false))
+//     ]
+//   ));
+//   db.insert(32, PocketDB::row(
+//     32,
+//     vec![
+//         PocketDB::cell(DataType::Text(String::from("Dan"))),
+//         PocketDB::cell(DataType::Text(String::from("Tamulonis"))),
+//         PocketDB::cell(DataType::Text(String::from("Software engineer"))),
+//         PocketDB::cell(DataType::Text(String::from("Vanguard"))),
+//         PocketDB::cell(DataType::Text(String::from("5"))),
+//         PocketDB::cell(DataType::Bool(false))
+//     ]
+//   ));
+//   db.insert(33, PocketDB::row(
+//     33,
+//     vec![
+//         PocketDB::cell(DataType::Text(String::from("Peter"))),
+//         PocketDB::cell(DataType::Text(String::from("Parker"))),
+//         PocketDB::cell(DataType::Text(String::from("Software engineer"))),
+//         PocketDB::cell(DataType::Text(String::from("Vanguard"))),
+//         PocketDB::cell(DataType::Text(String::from("5"))),
+//         PocketDB::cell(DataType::Bool(false))
+//     ]
+//   ));
+//   db.insert(34, PocketDB::row(
+//     34,
+//     vec![
+//         PocketDB::cell(DataType::Text(String::from("Nancy"))),
+//         PocketDB::cell(DataType::Text(String::from("Mullen"))),
+//         PocketDB::cell(DataType::Text(String::from("Software engineer"))),
+//         PocketDB::cell(DataType::Text(String::from("Vanguard"))),
+//         PocketDB::cell(DataType::Text(String::from("5"))),
+//         PocketDB::cell(DataType::Bool(false))
+//     ]
+//   ));
+//   db.insert(35, PocketDB::row(
+//     35,
+//     vec![
+//         PocketDB::cell(DataType::Text(String::from("Mike"))),
+//         PocketDB::cell(DataType::Text(String::from("Cebrian"))),
+//         PocketDB::cell(DataType::Text(String::from("Software engineer"))),
+//         PocketDB::cell(DataType::Text(String::from("Vanguard"))),
+//         PocketDB::cell(DataType::Text(String::from("5"))),
+//         PocketDB::cell(DataType::Bool(false))
+//     ]
+//   ));
+//   db.insert(36, PocketDB::row(
+//     36,
+//     vec![
+//         PocketDB::cell(DataType::Text(String::from("Justin"))),
+//         PocketDB::cell(DataType::Text(String::from("Silang"))),
+//         PocketDB::cell(DataType::Text(String::from("Software engineer"))),
+//         PocketDB::cell(DataType::Text(String::from("Vanguard"))),
+//         PocketDB::cell(DataType::Text(String::from("5"))),
+//         PocketDB::cell(DataType::Bool(false))
+//     ]
+//   ));
+//   db.insert(37, PocketDB::row(
+//     37,
+//     vec![
+//         PocketDB::cell(DataType::Text(String::from("Maggie"))),
+//         PocketDB::cell(DataType::Text(String::from("Lejeune"))),
+//         PocketDB::cell(DataType::Text(String::from("Software engineer"))),
+//         PocketDB::cell(DataType::Text(String::from("Vanguard"))),
+//         PocketDB::cell(DataType::Text(String::from("5"))),
+//         PocketDB::cell(DataType::Bool(false))
+//     ]
+//   ));
+//   db.insert(38, PocketDB::row(
+//     38,
+//     vec![
+//         PocketDB::cell(DataType::Text(String::from("Wynne"))),
+//         PocketDB::cell(DataType::Text(String::from("Lejeune"))),
+//         PocketDB::cell(DataType::Text(String::from("Software engineer"))),
+//         PocketDB::cell(DataType::Text(String::from("Vanguard"))),
+//         PocketDB::cell(DataType::Text(String::from("5"))),
+//         PocketDB::cell(DataType::Bool(false))
+//     ]
+//   ));
+//   db.insert(39, PocketDB::row(
+//     39,
+//     vec![
+//         PocketDB::cell(DataType::Text(String::from("James"))),
+//         PocketDB::cell(DataType::Text(String::from("Samuel"))),
+//         PocketDB::cell(DataType::Text(String::from("Software engineer"))),
+//         PocketDB::cell(DataType::Text(String::from("Vanguard"))),
+//         PocketDB::cell(DataType::Text(String::from("5"))),
+//         PocketDB::cell(DataType::Bool(false))
+//     ]
+//   ));
+//   db.insert(40, PocketDB::row(
+//     40,
+//     vec![
+//         PocketDB::cell(DataType::Text(String::from("Marley"))),
+//         PocketDB::cell(DataType::Text(String::from("Dog"))),
+//         PocketDB::cell(DataType::Text(String::from("Software engineer"))),
+//         PocketDB::cell(DataType::Text(String::from("Vanguard"))),
+//         PocketDB::cell(DataType::Text(String::from("5"))),
+//         PocketDB::cell(DataType::Bool(false))
+//     ]
+//   ));
+//   db.insert(41, PocketDB::row(
+//     41,
+//     vec![
+//         PocketDB::cell(DataType::Text(String::from("Dan"))),
+//         PocketDB::cell(DataType::Text(String::from("Tamulonis"))),
+//         PocketDB::cell(DataType::Text(String::from("Software engineer"))),
+//         PocketDB::cell(DataType::Text(String::from("Vanguard"))),
+//         PocketDB::cell(DataType::Text(String::from("5"))),
+//         PocketDB::cell(DataType::Bool(false))
+//     ]
+//   ));
 
   for i in 1..42 {
     println!("{:?}", db.search_by_primary_index(DataType::Integer(i)));
   }
   
-  // Parker
-  println!("{:?}", db.search_by_secondary_index(DataType::Text(String::from("Moore")), "lastname"));
+  println!("{:?}", db.search_by_secondary_index(DataType::Text(String::from("Maggie")), "firstname"));
+  println!("{:?}", db.search_by_secondary_index(DataType::Text(String::from("Parker")), "firstname"));
+  println!("{:?}", db.search_by_secondary_index(DataType::Text(String::from("Marley")), "firstname"));
+  println!("{:?}", db.search_by_secondary_index(DataType::Text(String::from("Emerson")), "firstname"));
+  println!("{:?}", db.search_by_secondary_index(DataType::Text(String::from("Chris")), "firstname"));
+  println!("{:?}", db.search_by_secondary_index(DataType::Text(String::from("Justin")), "firstname"));
+
 
 //   db.insert(42, PocketDB::row(
 //     33,

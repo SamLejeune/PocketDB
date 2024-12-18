@@ -239,7 +239,7 @@ impl TreeNode {
         };
 
         let (left_overflow, right_overflow) = if let Some(overflow_children) = self.cached_overflow_children.take() {
-            let (left_overflow, right_overflow) = TreeNode::split_overflow_children_at(overflow_children, split_children_at);
+            let (left_overflow, right_overflow) = TreeNode::split_overflow_children_at(overflow_children, split_keys_at);
 
             (Some(left_overflow), Some(right_overflow))
         } else {
@@ -516,11 +516,13 @@ impl TreeNode {
         }
     }
 
-    pub fn overflow_child(&self, i: usize) -> Option<(u32, usize)> {
+    pub fn overflow_child(&self, i: usize) -> Option<&NodeOverflow> {
         if let Some(overflow_children) = &self.cached_overflow_children {
-            if let Some(overflow_child) = &overflow_children[i] {
-                return Some(overflow_child.item(i));
-            } 
+            if let Some(overflow_child) = overflow_children.get(i) {
+                if let Some(overflow_child) = overflow_child {
+                    return Some(overflow_child);
+                }
+            }
         }
         None
     }
